@@ -10,13 +10,14 @@ Setup monitoring with [Prometheus](https://prometheus.io) and [Grafana](https://
 2. Run Prometheus: see below
 3. Visit your running Prometheus and run queries
 4. Run Grafana: see below
-5. Add Prometheus data source (Url: `http://localhost:9090`, Access: `direct`)
+5. Add Prometheus data source (Url: `http://prometheus:9090`)
 6. Import `grafana-dashboard.json` dashboard
 7. Create your own dashboard from the Prometheus queries
 
 ## Requirements
 
 - Docker
+- Docker Compose
 
 ### Run
 
@@ -24,7 +25,7 @@ Modify: `/prometheus-data/prometheus.yml`, replace `192.168.0.10` with your own 
 Host machine IP address: `ifconfig | grep 'inet 192'| awk '{ print $2}'`
 
 ```sh
-docker run -p 9090:9090 -v "$(pwd)/prometheus-data":/prometheus-data prom/prometheus -config.file=/prometheus-data/prometheus.yml
+docker up prometheus
 ```
 
 Open Prometheus: [http://localhost:9090](http://localhost:9090/graph)
@@ -120,7 +121,7 @@ States of active alerts: `pending`, `firing`
 ### Run
 
 ```sh
-docker run -i -p 3000:3000 grafana/grafana
+docker-compose up
 ```
 
 [Open Grafana: http://localhost:3000](http://localhost:3000)
